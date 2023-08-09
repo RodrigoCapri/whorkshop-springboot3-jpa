@@ -3,6 +3,14 @@ package com.rodrigomargarido.springboot.entities;
 import java.io.Serializable;
 import java.util.Objects;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "tb_user") //Especificando o nome da tabela do banco de dados
 public class User implements Serializable{
 
 	/**
@@ -10,7 +18,10 @@ public class User implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	@Id //Define a seguinte variavel como chave primária
+	@GeneratedValue(strategy = GenerationType.IDENTITY) //Para definir que será uma auto incremento na tabela de dados
 	private Long id;
+	
 	private String name;
 	private String email;
 	private String phone;
