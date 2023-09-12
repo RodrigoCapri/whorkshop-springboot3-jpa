@@ -1,12 +1,15 @@
 package com.rodrigomargarido.springboot.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -26,6 +29,9 @@ public class User implements Serializable{
 	private String email;
 	private String phone;
 	private String password;
+	
+	@OneToMany(mappedBy = "client") //Esta relação está mapeado por quem
+	private List<Order> orders = new ArrayList<>();
 	
 	public User() {
 	}
@@ -65,6 +71,10 @@ public class User implements Serializable{
 	public String getPhone() {
 		return phone;
 	}
+	
+	public List<Order> getOrders() {
+		return orders;
+	}
 
 	public void setPhone(String phone) {
 		this.phone = phone;
@@ -94,7 +104,6 @@ public class User implements Serializable{
 		User other = (User) obj;
 		return Objects.equals(id, other.id);
 	}
-	
 	
 	
 }
