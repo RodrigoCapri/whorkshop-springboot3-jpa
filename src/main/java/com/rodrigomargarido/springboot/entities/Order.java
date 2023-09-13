@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,8 +15,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
-@Entity
-@Table(name = "tb_order")
+@Entity //Define a classe como uma Entidade
+@Table(name = "tb_order") //Define o nome da tabela na base de dados
 public class Order implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -21,6 +24,9 @@ public class Order implements Serializable{
 	@Id //Define a seguinte variavel como chave primária
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //Para definir que será uma auto incremento na tabela de dados
 	private Long id;
+	
+	//Para formatar a string do instante no jpa
+	@JsonFormat( shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant moment;
 	
 	@ManyToOne //Muitos pra um
