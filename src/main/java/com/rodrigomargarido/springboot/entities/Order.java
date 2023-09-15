@@ -5,7 +5,7 @@ import java.time.Instant;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes;
+import com.rodrigomargarido.springboot.entities.enums.OrderStatus;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,6 +29,8 @@ public class Order implements Serializable{
 	@JsonFormat( shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant moment;
 	
+	private Integer orderStatus;
+	
 	@ManyToOne //Muitos pra um
 	@JoinColumn(name = "client_id") //Nome para a chave estrangeira
 	private User client;
@@ -36,9 +38,10 @@ public class Order implements Serializable{
 	public Order() {
 	}
 
-	public Order(Long id, Instant moment, User client) {
+	public Order(Long id, Instant moment, OrderStatus orderStatus, User client) {
 		this.id = id;
 		this.moment = moment;
+		this.setOrderStatus(orderStatus); //Atribui o valor OrderStatus já convertino no var Integer
 		this.client = client;
 	}
 
@@ -52,6 +55,15 @@ public class Order implements Serializable{
 
 	public Instant getMoment() {
 		return moment;
+	}
+
+	public OrderStatus getOrderStatus() { //Converte o integer em OrderStatus
+		return OrderStatus.valueOf(this.orderStatus);
+	}
+
+	public void setOrderStatus(OrderStatus orderStatus) { //Converte o OrderStatus em integer
+		if( orderStatus != null)
+			this.orderStatus = orderStatus.getCode();
 	}
 
 	public void setMoment(Instant moment) {
