@@ -39,6 +39,7 @@ public class TestConfig implements CommandLineRunner{ //Implementa CommandLineRu
 	@Override
 	public void run(String... args) throws Exception {
 		
+		//Criando novas vategorias
 		Category cat1 = new Category(null, "Electronics"); 
 		Category cat2 = new Category(null, "Books"); 
 		Category cat3 = new Category(null, "Computers"); 
@@ -50,7 +51,19 @@ public class TestConfig implements CommandLineRunner{ //Implementa CommandLineRu
 		Product p4 = new Product(null, "PC Gamer", "Donec aliquet odio ac rhoncus cursus.", 1200.0, "");
 		Product p5 = new Product(null, "Rails for Dummies", "Cras fringilla convallis sem vel faucibus.", 100.99, "");
 		
+		//Salvando as categorias e os produtos
 		categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
+		productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
+		
+		//Fazendo as associações de ccategoria e produto
+		p1.getCategories().add(cat2); //Adicionando a cat2 na coleção de categorias p1
+		p2.getCategories().add(cat1);
+		p2.getCategories().add(cat3);
+		p3.getCategories().add(cat3);
+		p4.getCategories().add(cat3);
+		p5.getCategories().add(cat2);
+		
+		//Salvando novamente os produtos com as associeações
 		productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
 		
 		//Criando novos usuários
