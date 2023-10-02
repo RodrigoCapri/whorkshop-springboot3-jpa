@@ -25,7 +25,7 @@ public class Category implements Serializable{
 	private Long id;
 	private String category;
 	
-	@JsonIgnore
+	@JsonIgnore // Para evitar dar loop infinito por conta da associação dupla
 	@ManyToMany(mappedBy = "categories") //Coloca o nome da coleção da outra classe que tem o mapeamento
 	private Set<Product> products = new HashSet<>();
 	
