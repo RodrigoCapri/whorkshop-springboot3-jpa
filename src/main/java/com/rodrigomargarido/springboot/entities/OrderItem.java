@@ -3,6 +3,7 @@ package com.rodrigomargarido.springboot.entities;
 import java.io.Serializable;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.rodrigomargarido.springboot.entities.pk.OrderItemPK;
 
 import jakarta.persistence.EmbeddedId;
@@ -12,6 +13,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_order_item")
+//Uma tabela associativa com elementos extras
 public class OrderItem implements Serializable{
 
 	/**
@@ -20,7 +22,8 @@ public class OrderItem implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@EmbeddedId
-	private OrderItemPK id; //Id composto
+	private OrderItemPK id = new OrderItemPK(); //Id composto, deve-se instanciar aqui mesmo
+	
 	private Integer quantity;
 	private Double price;
 	
@@ -37,6 +40,7 @@ public class OrderItem implements Serializable{
 		this.id.setProduct(product);
 	}
 	
+	@JsonIgnore  //metodo get problematico
 	public Order getOrder() {
 		return this.id.getOrder();
 	}
