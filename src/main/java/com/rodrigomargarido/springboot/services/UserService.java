@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.rodrigomargarido.springboot.entities.User;
 import com.rodrigomargarido.springboot.repositories.UserRepository;
+import com.rodrigomargarido.springboot.services.exceptions.ResourceNotFoundException;
 
 @Service //Registra sua classe como um serviço do Spring
 public class UserService {
@@ -21,7 +22,9 @@ public class UserService {
 	
 	public User findById(Long id) {
 		Optional<User> optional = repository.findById(id);
-		return optional.get();
+		
+		//Tenta dar um get, se não houver o usuario, lança uma exceção
+		return optional.orElseThrow( () -> new ResourceNotFoundException(id) ); 
 	}
 	
 	//Metodo para inserir no BD um usuario
