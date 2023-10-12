@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,14 +37,22 @@ public class UserResource {
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<User> finById(@PathVariable Long id){
 		User obj = service.findById(id);
-		return ResponseEntity.ok().body(obj);
+		return ResponseEntity.ok().body(obj); //Codigo http = 200
 	}
 	
 	@PostMapping
 	public ResponseEntity<User> insert(@RequestBody User obj){
 		obj = this.service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
-		return ResponseEntity.created(uri).body(obj);
+		return ResponseEntity.created(uri).body(obj); //Codigo http = 201
+	}
+	
+	@DeleteMapping(value = "/{id}")
+	//Do tipo Void pois não vai retornar nenhum corpo
+	public ResponseEntity<Void> delete(@PathVariable Long id){ //Pro id ser reconhecido na URL
+		this.service.delete(id);
+		//Uma resposta sem corpo(vazia)
+		return ResponseEntity.noContent().build(); //Codigo http = 204
 	}
 	
 }
