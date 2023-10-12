@@ -97,7 +97,7 @@ public class Product implements Serializable{
 	@JsonIgnore
 	public Set<Order> getOrders(){
 		//Percorre a lista de itens de pedido para retornar todas as ordens associados ao item
-		Set<Order> set = new HashSet<>();
+		Set<Order> set = new HashSet<>(); //Uma lista que não permite repetições
 		for(OrderItem x : this.items) {
 			set.add(x.getOrder());
 		}

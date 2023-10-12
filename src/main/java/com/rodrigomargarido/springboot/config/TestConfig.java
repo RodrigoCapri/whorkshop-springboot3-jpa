@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Profile;
 import com.rodrigomargarido.springboot.entities.Category;
 import com.rodrigomargarido.springboot.entities.Order;
 import com.rodrigomargarido.springboot.entities.OrderItem;
+import com.rodrigomargarido.springboot.entities.Payment;
 import com.rodrigomargarido.springboot.entities.Product;
 import com.rodrigomargarido.springboot.entities.User;
 import com.rodrigomargarido.springboot.entities.enums.OrderStatus;
@@ -90,6 +91,14 @@ public class TestConfig implements CommandLineRunner{ //Implementa CommandLineRu
 		OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice());
 		OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
 		orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
+		
+		//Adicionando um pagamento para um pedido
+		//Associando o pedido o1 para o pay1 com 2 hrs após o mesmo ter sido realizado
+		Payment pay1 = new Payment(null, Instant.parse("2019-06-20T21:53:07Z"), o1);
+		//Define o pagamento para o pedido de o1
+		o1.setPayment(pay1);
+		//Salva novamente o pedido
+		orderRepository.save(o1);
 		
 	}
 	
