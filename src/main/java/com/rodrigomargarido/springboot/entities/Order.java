@@ -103,6 +103,14 @@ public class Order implements Serializable{
 	public Set<OrderItem> getItems(){
 		return items;
 	}
+	
+	public Double getTotal() { //Faz a soma de todos os subtotais de cada item no pedido
+		Double sum = 0.0;
+		for(OrderItem x : this.items) {
+			sum += x.getSubTotal();
+		}
+		return sum;
+	}
 
 	@Override
 	public int hashCode() {

@@ -72,6 +72,11 @@ public class OrderItem implements Serializable{
 	public void setPrice(Double price) {
 		this.price = price;
 	}
+	
+	//Na plataforma Json o que vale é o metodo com prefixo get
+	public Double getSubTotal() {
+		return this.price * this.quantity;
+	}
 
 	@Override
 	public int hashCode() {
