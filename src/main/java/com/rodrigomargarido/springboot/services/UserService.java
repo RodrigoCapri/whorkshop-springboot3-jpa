@@ -33,4 +33,18 @@ public class UserService {
 	public void delete(Long id) {
 		this.repository.deleteById(id);
 	}
+	
+	public User update(Long id, User obj) {
+		User entity  = repository.getReferenceById(id); //Retorna uma referencia de usuario ja existente no id indicado
+		updateDate(entity, obj);
+		return this.repository.save(entity);
+	}
+
+	private void updateDate(User entity, User obj) {
+		entity.setName(obj.getName());
+		entity.setEmail(obj.getEmail());
+		entity.setPhone(obj.getPhone());
+	}
+	
+	
 }
