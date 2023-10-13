@@ -13,6 +13,8 @@ import com.rodrigomargarido.springboot.repositories.UserRepository;
 import com.rodrigomargarido.springboot.services.exceptions.DatabaseException;
 import com.rodrigomargarido.springboot.services.exceptions.ResourceNotFoundException;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service //Registra sua classe como um serviço do Spring
 public class UserService {
 
@@ -48,9 +50,13 @@ public class UserService {
 	}
 	
 	public User update(Long id, User obj) {
-		User entity  = repository.getReferenceById(id); //Retorna uma referencia de usuario ja existente no id indicado
-		updateDate(entity, obj);
-		return this.repository.save(entity);
+		try {
+			User entity  = repository.getReferenceById(id); //Retorna uma referencia de usuario ja existente no id indicado
+			updateDate(entity, obj);
+			return this.repository.save(entity);
+		}catch(EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
 	}
 
 	private void updateDate(User entity, User obj) {
