@@ -3,12 +3,12 @@
 Criação de uma API como acompanhamento do curso de Java na Udemy com Prof. Nelio Alves.
 
 ### Descrição:
-- Este projeto tem como objetivo demonstrar a criação de uma API utilizando o framework Spring Boot e o banco de dados NoSQL MongoDB.
+- Este projeto tem como objetivo demonstrar a criação de uma API utilizando o framework Spring Boot e o banco de dados SQL PostGree.
 - A aplicação permite gerenciar um catálogo de produtos, incluindo informações como nome, descrição e preço.
 
 ### Tecnologias Utilizadas:
 - Spring Boot: Framework Java para desenvolvimento de aplicações web de forma rápida e eficiente.
-- MongoDB: Banco de dados NoSQL document-oriented, ideal para armazenar dados flexíveis e escaláveis.
+- PostGree: ideal para aplicações com base de dados relacionais
 - Java: Linguagem de programação utilizada para desenvolver a aplicação.
 - Outras tecnologias utilizadas: Maven
 
